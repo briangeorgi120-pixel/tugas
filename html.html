@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Undangan Pernikahan – [Nama Mempelai]</title>
+  <meta name="description" content="Undangan pernikahan bergaya minimalis pastel (putih & biru) dengan hiasan floral, countdown, galeri, maps, buku tamu, dan RSVP." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f7fbff;           /* putih kebiruan */
+      --card:#ffffff;
+      --ink:#0f172a;          /* slate-900 */
+      --muted:#475569;        /* slate-600 */
+      --brand:#4f9be8;        /* biru pastel */
+      --brand-2:#a5d8ff;      /* biru muda */
+      --accent:#b4e1ff;       /* aksen */
+      --ring:rgba(79,155,232,.35);
+      --shadow:0 20px 40px rgba(15,23,42,.08);
+      --radius:20px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;scroll-behavior:smooth;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    img{max-width:100%;display:block}
+    section{padding:80px 20px}
+    .container{max-width:1100px;margin:0 auto}
+    .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .title{font-family:"Playfair Display",serif;letter-spacing:.3px}
+    .btn{appearance:none;border:0;border-radius:999px;padding:14px 22px;font-weight:600;background:var(--brand);color:#fff;box-shadow:0 10px 20px rgba(79,155,232,.25);cursor:pointer;transition:.25s}
+    .btn:hover{transform:translateY(-2px)}
+    .btn.ghost{background:transparent;color:var(--brand);outline:2px solid var(--brand)}
+    .muted{color:var(--muted)}
+    .pill{display:inline-flex;align-items:center;gap:10px;background:#ecf5ff;border-radius:999px;color:#2563eb;padding:8px 12px;font-weight:600}
+
+    /* NAV */
+    .nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(130%) blur(10px);background:rgba(247,251,255,.65);border-bottom:1px solid rgba(15,23,42,.05)}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 20px;max-width:1100px;margin:0 auto}
+    .nav a{color:var(--muted);text-decoration:none;font-weight:600}
+    .nav .links{display:flex;gap:18px;flex-wrap:wrap}
+
+    /* HERO */
+    .hero{position:relative;display:grid;place-items:center;min-height:85vh;padding-top:120px;padding-bottom:120px;overflow:hidden}
+    .hero .frame{position:absolute;inset:0;background:radial-gradient(1000px 600px at 50% -10%, #eaf5ff 0%, transparent 60%), radial-gradient(1000px 600px at 50% 110%, #eaf5ff 0%, transparent 60%)}
+    .hero h1{font-size:clamp(36px,5vw,64px);margin:0 0 10px}
+    .hero h1 .amp{color:var(--brand);font-style:italic}
+    .hero .date{font-weight:600;letter-spacing:.12em;color:#1d4ed8}
+    .hero .card{padding:32px;position:relative}
+
+    /* Floral corners */
+    .floral{position:absolute;pointer-events:none;opacity:.8}
+    .floral.tl{top:-40px;left:-40px;width:180px}
+    .floral.br{bottom:-40px;right:-40px;width:200px}
+
+    /* Countdown */
+    .countdown{display:grid;grid-template-columns:repeat(4,minmax(70px,1fr));gap:16px;margin-top:22px}
+    .countdown .box{background:#ffffff;border-radius:16px;padding:14px 10px;text-align:center;border:1px solid rgba(15,23,42,.06)}
+    .countdown .num{font-size:28px;font-weight:800}
+    .countdown .lab{font-size:12px;color:var(--muted)}
+
+    /* Couple */
+    .couple{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+    .person{padding:20px;display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:center}
+    .avatar{width:120px;height:120px;border-radius:999px;overflow:hidden;border:6px solid #ecf5ff}
+
+    /* Events */
+    .grid{display:grid;gap:20px}
+    @media(min-width:800px){.grid.cols-2{grid-template-columns:1fr 1fr}}
+    .item{padding:20px}
+
+    /* Timeline */
+    .timeline{position:relative;padding-left:26px}
+    .timeline:before{content:"";position:absolute;left:11px;top:0;bottom:0;width:2px;background:linear-gradient(var(--brand),transparent)}
+    .t-step{position:relative;margin:18px 0}
+    .t-step:before{content:"";position:absolute;left:-4px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--brand)}
+
+    /* Gallery */
+    .gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    @media(min-width:900px){.gallery{grid-template-columns:repeat(4,1fr)}}
+    .gallery img{border-radius:14px;filter:saturate(1.05);}
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;padding:20px}
+    .lightbox img{max-height:90vh;border-radius:16px}
+
+    /* RSVP & Buku Tamu */
+    form{display:grid;gap:12px}
+    input,textarea,select{padding:12px 14px;border-radius:14px;border:1px solid rgba(15,23,42,.15);outline:0}
+    input:focus,textarea:focus,select:focus{box-shadow:0 0 0 6px var(--ring);border-color:var(--brand)}
+
+    /* Map */
+    .map{border:0;width:100%;height:360px;border-radius:16px}
+
+    /* Footer */
+    footer{padding:50px 20px;text-align:center;color:var(--muted)}
+
+    /* Floating petals */
+    .petal{position:fixed;top:-10vh;animation:fall linear forwards;opacity:.7}
+    @keyframes fall{to{transform:translateY(110vh) rotate(360deg);opacity:.9}}
+
+    /* Music bubble */
+    .music{position:fixed;right:18px;bottom:18px;z-index:60}
+    .music button{width:56px;height:56px;border-radius:999px;border:0;box-shadow:var(--shadow);background:var(--brand);color:#fff;font-weight:800}
+
+    /* Utility */
+    .center{text-align:center}
+    .mb-6{margin-bottom:24px}
+    .mb-2{margin-bottom:8px}
+    .mt-3{margin-top:12px}
+    .chip{display:inline-block;background:#eaf2ff;border-radius:999px;padding:6px 12px;font-weight:600;color:#1e40af}
+  </style>
+</head>
+<body>
+  <!-- Floating petals (decor) created dynamically by JS) -->
+
+  <!-- NAV -->
+  <div class="nav">
+    <div class="nav-inner">
+      <a href="#home" class="title" style="font-weight:700">Undangan</a>
+      <div class="links">
+        <a href="#home">Beranda</a>
+        <a href="#couple">Mempelai</a>
+        <a href="#event">Acara</a>
+        <a href="#story">Kisah</a>
+        <a href="#gallery">Galeri</a>
+        <a href="#rsvp">RSVP</a>
+        <a href="#lokasi">Lokasi</a>
+        <a href="#hadiah">Hadiah</a>
+        <a href="#buku-tamu">Buku Tamu</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header id="home" class="hero">
+    <div class="frame"></div>
+    <svg class="floral tl" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M100 0C95 30 70 45 40 50C20 53 8 70 15 90C25 120 65 120 85 100C110 75 125 45 160 35C185 28 200 10 200 0" fill="#dff1ff"/>
+    </svg>
+    <svg class="floral br" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M0 200C35 180 55 150 85 140C115 130 140 150 160 160C185 175 200 165 200 150C200 120 165 110 140 95C110 75 95 45 90 0" fill="#dff1ff"/>
+    </svg>
+
+    <div class="container">
+      <div class="card center">
+        <span class="pill">Dengan penuh sukacita</span>
+        <h1 class="title">[Nama A] <span class="amp">&</span> [Nama B]</h1>
+        <div class="date">Minggu, 12 Oktober 2025 • 10.00 WIB</div>
+        <p class="muted">Kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri pernikahan kami.</p>
+        <div class="countdown" id="countdown" aria-label="Hitung mundur"></div>
+        <div class="mt-3">
+          <a class="btn" href="#rsvp">Konfirmasi Kehadiran</a>
+          <a class="btn ghost" href="#lokasi">Lihat Lokasi</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- COUPLE -->
+  <section id="couple">
+    <div class="container">
+      <div class="center mb-6">
+        <span class="chip">Mempelai</span>
+        <h2 class="title" style="margin:.4rem 0 0">Dengan memohon rahmat Tuhan</h2>
+        <p class="muted">Mohon doa restu untuk keberkahan pernikahan kami.</p>
+      </div>
+      <div class="couple">
+        <div class="card person">
+          <div class="avatar"><img src="satrio.jpg" alt="Foto mempelai A"/></div>
+          <div>
+            <h3 class="title mb-2">[Nama Lengkap A]</h3>
+            <p class="muted">Putra dari Bapak [Ayah A] & Ibu [Ibu A]</p>
+            <p class="muted">@usernameA</p>
+          </div>
+        </div>
+        <div class="card person">
+          <div class="avatar"><img src="aira.jpg" alt="Foto mempelai B"/></div>
+          <div>
+            <h3 class="title mb-2">[Nama Lengkap B]</h3>
+            <p class="muted">Putri dari Bapak [Ayah B] & Ibu [Ibu B]</p>
+            <p class="muted">@usernameB</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVENTS -->
+  <section id="event">
+    <div class="container">
+      <div class="center mb-6">
+        <span class="chip">Rangkaian Acara</span>
+        <h2 class="title" style="margin:.4rem 0 0">Tanggal & Waktu</h2>
+        <p class="muted">Silakan hadir tepat waktu sesuai jadwal berikut.</p>
+      </div>
+      <div class="grid cols-2">
+        <div class="card item">
+          <h3 class="title mb-2">Akad Nikah</h3>
+          <p class="muted">Minggu, 12 Oktober 2025 • 10.00 WIB</p>
+          <p>Masjid [Nama Masjid], Jl. Contoh Alamat No. 123, Kota</p>
+        </div>
+        <div class="card item">
+          <h3 class="title mb-2">Resepsi</h3>
+          <p class="muted">Minggu, 12 Oktober 2025 • 19.00–21.00 WIB</p>
+          <p>Gedung [Nama Gedung], Jl. Contoh Alamat No. 456, Kota</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORY -->
+  <section id="story">
+    <div class="container">
+      <div class="center mb-6">
+        <span class="chip">Kisah Kami</span>
+        <h2 class="title" style="margin:.4rem 0 0">Perjalanan Cinta</h2>
+        <p class="muted">Sedikit cerita tentang bagaimana kami dipertemukan.</p>
+      </div>
+      <div class="card" style="padding:20px">
+        <div class="timeline">
+          <div class="t-step">
+            <h4 class="mb-2">2019 — Pertama Bertemu</h4>
+            <p class="muted">Kami bertemu di kampus yang sama dan menjadi teman baik.</p>
+          </div>
+          <div class="t-step">
+            <h4 class="mb-2">2021 — Lamaran</h4>
+            <p class="muted">Dengan restu orang tua, kami resmi bertunangan.</p>
+          </div>
+          <div class="t-step">
+            <h4 class="mb-2">2025 — Menikah</h4>
+            <p class="muted">Kami memulai babak baru sebagai pasangan suami istri.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery">
+    <div class="container">
+      <div class="center mb-6">
+        <span class="chip">Galeri</span>
+        <h2 class="title" style="margin:.4rem 0 0">Momen Bahagia</h2>
+        <p class="muted">Beberapa potret favorit kami.</p>
+      </div>
+      <div class="gallery">
+        <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=800&auto=format&fit=crop" alt="galeri 1"/>
+        <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=800&auto=format&fit=crop" alt="galeri 2"/>
+        <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=800&auto=format&fit=crop" alt="galeri 3"/>
+        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=800&auto=format&fit=crop" alt="galeri 4"/>
+        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop" alt="galeri 5"/>
+        <img src="https://images.unsplash.com/photo-1541535644286-7ea849b0a67d?q=80&w=800&auto=format&fit=crop" alt="galeri 6"/>
+        <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=800&auto=format&fit=crop" alt="galeri 7"/>
+        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop" alt="galeri 8"/>
+      </div>
+      <div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+        <img src="" alt="Pratinjau foto" id="lightbox-img" />
+      </div>
+    </div>
+  </section>
+
+  <!-- RSVP -->
+  <section id="rsvp">
+    <div class="container">
+      <div class="center mb-6">
+        <span class="chip">RSVP</span>
+        <h2 class="title" style="margin:.4rem 0 0">Konfirmasi Kehadiran</h2>
+        <p class="muted">Mohon isi formulir berikut untuk membantu kami menyiapkan acara.</p>
+      </div>
+      <div class="grid cols-2">
+        <div class="card item">
+          <form id="rsvp-form">
+            <input required name="nama" placeholder="Nama lengkap"/>
+            <input required name="telp" placeholder="Nomor WhatsApp"/>
+            <select name="status" required>
+              <option value="">Apakah hadir?</option>
+              <option>Hadir</option>
+              <option>Tidak dapat hadir</option>
+            </select>
+            <input name="jumlah" type="number" min="1" placeholder="Jumlah tamu (opsional)"/>
+            <textarea name="catatan" rows="3" placeholder="Ucapan/permintaan khusus"></textarea>
+            <button class="btn" type="submit">Kirim RSVP</button>
+            <small class="muted">*Data disimpan lokal (demo). Dapat dihubungkan ke Google Sheet/Form.</small>
+          </form>
+        </div>
+        <div class="card item">
+          <h3 class="title mb-2">Kontak Keluarga</h3>
+          <p class="muted">Hubungi jika membutuhkan bantuan arah/parkir.</p>
+          <ul>
+            <li>Bapak [Nama] — 08xx-xxxx-xxxx</li>
+            <li>Ibu [Nama] — 08xx-xxxx-xxxx</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAP -->
+  <section id="lokasi">
+    <div class="container">
+      <div class="center mb-6">
+        <span class="chip">Lokasi</span>
+        <h2 class="title" style="margin:.4rem 0 0">Tempat Acara</h2>
+        <p class="muted">Gunakan peta berikut untuk navigasi.</p>
+      </div>
+      <div class="card" style="padding:16px">
+        <iframe class="map" title="Lokasi Acara" src="https://www.google.com/maps?q=Monas%20Jakarta&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="center" style="margin-top:12px">
+          <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=Monas%20Jakarta">Buka di Google Maps</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GIFTS -->
+  <section id="hadiah">
+    <div class="container">
+      <div class="center mb-6">
+        <span class="chip">Hadiah</span>
+        <h2 class="title" style="margin:.4rem 0 0">Ungkapan Kasih</h2>
+        <p class="muted">Doa restu adalah hadiah terbaik. Jika berkenan mengirim hadiah, berikut informasi rekening/kado digital.</p>
+      </div>
+      <div class="grid cols-2">
+        <div class="card item">
+          <h3 class="title mb-2">Transfer Bank</h3>
+          <p class="muted">BCA • 123456789 • a.n. [Nama A/B]</p>
+          <button class="btn" onclick="copyText('BCA 123456789 a.n. [Nama]')">Salin</button>
+        </div>
+        <div class="card item">
+          <h3 class="title mb-2">Alamat Kado</h3>
+          <p>Jl. Contoh Alamat No. 78, Kota, 12345</p>
+          <button class="btn ghost" onclick="alert('Terima kasih!')">Konfirmasi Pengiriman</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GUESTBOOK -->
+  <section id="buku-tamu">
+    <div class="container">
+      <div class="center mb-6">
+        <span class="chip">Buku Tamu</span>
+        <h2 class="title" style="margin:.4rem 0 0">Tinggalkan Ucapan</h2>
+        <p class="muted">Ucapan Anda sangat berarti bagi kami.</p>
+      </div>
+      <div class="grid cols-2">
+        <div class="card item">
+          <form id="wish-form">
+            <input name="nama" placeholder="Nama" required>
+            <textarea name="pesan" rows="3" placeholder="Ucapan manis Anda" required></textarea>
+            <button class="btn" type="submit">Kirim Ucapan</button>
+          </form>
+        </div>
+        <div class="card item" id="wish-list" style="max-height:360px;overflow:auto;padding:0">
+          <div style="padding:16px 16px 0"><h3 class="title">Ucapan Masuk</h3></div>
+          <div id="wishes" style="display:grid;gap:12px;padding:16px"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p class="muted">Terima kasih atas doa dan kehadiran Anda.</p>
+      <p class="muted">© 2025 [Nama A] & [Nama B]. Dibuat dengan cinta.</p>
+    </div>
+  </footer>
+
+  <!-- MUSIC BUBBLE -->
+  <div class="music">
+    <button id="music-toggle" aria-label="Putar/Mute Musik">♪</button>
+    <audio id="bgm" loop preload="none">
+      <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_0b3b1b3cdb.mp3?filename=romantic-ambient-110248.mp3" type="audio/mpeg" />
+    </audio>
+  </div>
+
+  <script>
+    // ====== Floating petals (decor) ======
+    const petalEmoji = ["❀","✿","❁","✾"]; // ringan & pastel
+    function spawnPetal(){
+      const span = document.createElement('span');
+      span.className = 'petal';
+      span.textContent = petalEmoji[Math.floor(Math.random()*petalEmoji.length)];
+      const size = 12 + Math.random()*16;
+      span.style.left = Math.random()*100 + 'vw';
+      span.style.fontSize = size + 'px';
+      span.style.animationDuration = (6 + Math.random()*6) + 's';
+      document.body.appendChild(span);
+      setTimeout(()=>span.remove(), 12000);
+    }
+    setInterval(spawnPetal, 600);
+
+    // ====== Countdown ======
+    const targetDate = new Date('2025-10-12T10:00:00+07:00'); // UBAH sesuai tanggal
+    const cd = document.getElementById('countdown');
+    function updateCountdown(){
+      const now = new Date();
+      const diff = Math.max(0, targetDate - now);
+      const d = Math.floor(diff/ (1000*60*60*24));
+      const h = Math.floor((diff/ (1000*60*60)) % 24);
+      const m = Math.floor((diff/ (1000*60)) % 60);
+      const s = Math.floor((diff/ 1000) % 60);
+      cd.innerHTML = ['Hari','Jam','Menit','Detik'].map((lab,i)=>{
+        const num = [d,h,m,s][i];
+        return <div class="box"><div class="num">${String(num).padStart(2,'0')}</div><div class="lab">${lab}</div></div>
+      }).join('');
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // ====== Gallery Lightbox ======
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightbox-img');
+    document.querySelectorAll('#gallery .gallery img').forEach(img=>{
+      img.style.cursor='zoom-in';
+      img.addEventListener('click',()=>{lbImg.src=img.src;lb.style.display='flex'})
+    });
+    lb.addEventListener('click',()=>lb.style.display='none');
+
+    // ====== Copy helper ======
+    async function copyText(text){
+      try{await navigator.clipboard.writeText(text);alert('Disalin: '+text)}catch(e){alert('Gagal menyalin')}
+    }
+    window.copyText = copyText;
+
+    // ====== RSVP (demo localStorage) ======
+    const rsvpForm = document.getElementById('rsvp-form');
+    rsvpForm.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(rsvpForm));
+      const list = JSON.parse(localStorage.getItem('rsvp_list')||'[]');
+      list.push({...data, time: new Date().toISOString()});
+      localStorage.setItem('rsvp_list', JSON.stringify(list));
+      alert('Terima kasih! RSVP Anda terekam.');
+      rsvpForm.reset();
+    });
+
+    // ====== Buku Tamu (localStorage) ======
+    const wishForm = document.getElementById('wish-form');
+    const wishesEl = document.getElementById('wishes');
+    function renderWishes(){
+      const wishes = JSON.parse(localStorage.getItem('wishes')||'[]').reverse();
+      wishesEl.innerHTML = wishes.map(w=>`
+        <div style="background:#fff;border:1px solid rgba(15,23,42,.08);border-radius:14px;padding:12px 14px">
+          <strong>${w.nama}</strong>
+          <p class="muted" style="margin:.3rem 0 0">${w.pesan}</p>
+          <small class="muted">${new Date(w.time).toLocaleString('id-ID', {dateStyle:'medium', timeStyle:'short'})}</small>
+        </div>
+      `).join('');
+    }
+    wishForm.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(wishForm));
+      const list = JSON.parse(localStorage.getItem('wishes')||'[]');
+      list.push({...data, time:new Date().toISOString()});
+      localStorage.setItem('wishes', JSON.stringify(list));
+      wishForm.reset();
+      renderWishes();
+    });
+    renderWishes();
+
+    // ====== Music control ======
+    const toggleBtn = document.getElementById('music-toggle');
+    const bgm = document.getElementById('bgm');
+    let playing=false;
+    toggleBtn.addEventListener('click', async ()=>{
+      if(!playing){try{await bgm.play();playing=true;toggleBtn.textContent='⏸';}catch(e){alert('Klik sekali lagi untuk memutar.')}}
+      else{bgm.pause();playing=false;toggleBtn.textContent='♪'}
+    });
+  </script>
+</body>
+</html>
